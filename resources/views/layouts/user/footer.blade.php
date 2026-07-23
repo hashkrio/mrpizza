@@ -41,7 +41,7 @@
                     <li><a href="{{ url('/') }}">{{ __('Privacy Policy') }}</a></li>
                     <li><a href="{{ url('/') }}">{{ __('About Company') }}</a></li>
                     <li><a href="{{ url('/') }}">{{ __('Payment Gateway') }}</a></li>
-                    <li><a href="{{ url('/') }}">{{ __('Terms &amp; Conditions') }}</a></li>
+                    <li><a href="{{ url('/') }}">{{ __('Terms & Conditions') }}</a></li>
                 </ul>
             </div>
 
