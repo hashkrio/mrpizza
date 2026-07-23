@@ -9,19 +9,17 @@ use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Order;
 
-class RegistrationSuccessMail extends Mailable
+class OrderPlacedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user, $plainPassword;
-    /**
-     * Create a new message instance.
-     */
-    public function __construct($user, $plainPassword)
+    public $order;
+
+    public function __construct(Order $order)
     {
-        $this->user = $user;
-        $this->plainPassword = $plainPassword;
+        $this->order = $order;
     }
 
     /**
@@ -30,7 +28,7 @@ class RegistrationSuccessMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('Registration Success - ') . company_name()
+            subject: __('Order Confirmed - ') . $this->order->order_no . ' - ' . company_name(),
         );
     }
 
@@ -40,7 +38,7 @@ class RegistrationSuccessMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.registration-success',
+            view: 'emails.order-placed',
         );
     }
 

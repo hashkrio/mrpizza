@@ -5,19 +5,28 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Models\Addon;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\OrderAddon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderPlacedMail;
+use Illuminate\Support\Facades\Log;
 
 class CheckoutController extends Controller
 {
     public function index()
     {
+        if (!auth()->check()) {
+            session(['url.intended' => route('checkout')]);
+        }
         $locale = app()->getLocale();
         $fallback = asset('assets/img/no-img-item.png');
         $symbol = currency_symbol($locale);
 
         [$items, $total, $addonsByCategory] = $this->buildCart($locale, $fallback);
 
-        // Cart empty → send them back to the menu
         if (empty($items)) {
             return redirect()->route('cart');
         }
@@ -31,9 +40,6 @@ class CheckoutController extends Controller
         ]);
     }
 
-    /**
-     * Save a per-item note (AJAX, no reload).
-     */
     public function saveNote(Request $request)
     {
         $request->validate([
@@ -56,43 +62,132 @@ class CheckoutController extends Controller
     /**
      * Place the order.
      */
-   public function place(Request $request)
-{
-    $request->validate([
-        'name'    => 'required|string|max:120',
-        'mobile'  => 'required|string|max:40',
-        'email'   => 'nullable|email|max:150',
-        'address' => 'required|string|max:500',
-        'note'    => 'nullable|string|max:1000',   // single order note
-    ]);
+    public function checkout_place(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:120',
+            'mobile' => 'required|string|max:40',
+            'email' => 'nullable|email|max:150',
+            'address' => 'required|string|max:500',
+            'note' => 'nullable|string|max:1000',
+            'payment_method' => 'nullable|string|max:30',
+        ]);
 
-    $locale   = app()->getLocale();
-    $fallback = asset('assets/img/no-img-item.png');
+        $locale = app()->getLocale();
+        $fallback = asset('assets/img/no-img-item.png');
 
-    [$items, $total] = $this->buildCart($locale, $fallback);
+        [$items, $total] = $this->buildCart($locale, $fallback);
 
-    if (empty($items)) {
-        return redirect()->route('cart')->with('error', __('Your cart is empty.'));
+        if (empty($items)) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => __('Your cart is empty.'),
+                ],
+                422,
+            );
+        }
+
+        $itemsTotal = 0;
+        $addonsTotal = 0;
+
+        foreach ($items as $row) {
+            $itemsTotal += $row['price'] * $row['qty'];
+            $addonsTotal += $row['addon_total'] * $row['qty'];
+        }
+
+        $subtotal = $itemsTotal + $addonsTotal;
+        $discount = 0;
+        $deliveryCharge = 0;
+        $tax = 0;
+        $grandTotal = $subtotal - $discount + $deliveryCharge + $tax;
+
+        $order = DB::transaction(function () use ($request, $items, $locale, $itemsTotal, $addonsTotal, $subtotal, $discount, $deliveryCharge, $tax, $grandTotal) {
+            $order = Order::create([
+                // 'order_no'         => $this->generateOrderNo(),
+                'user_id' => auth()->id(),
+                'name' => $request->name,
+                'mobile' => $request->mobile,
+                'email' => $request->email,
+                'address' => $request->address,
+                'order_note' => trim((string) $request->note) ?: null,
+                'items_total' => $itemsTotal,
+                'addons_total' => $addonsTotal,
+                'subtotal' => $subtotal,
+                'discount' => $discount,
+                'delivery_charge' => $deliveryCharge,
+                'tax' => $tax,
+                'total' => $grandTotal,
+                'lang' => $locale,
+                'currency_symbol' => currency_symbol($locale),
+                'currency_code' => function_exists('currency_code') ? currency_code($locale) : null,
+                'payment_method' => $request->payment_method ?: 'cod',
+                'payment_status' => 'Paid',
+                'status' => 'Confirmed',
+            ]);
+
+            foreach ($items as $row) {
+                $orderItem = OrderItem::create([
+                    'order_id' => $order->id,
+                    'item_id' => $row['item_id'],
+                    'item_name' => $row['name'],
+                    'size' => $row['size'],
+                    'qty' => $row['qty'],
+                    'item_price' => $row['price'],
+                    'total' => $row['line_total'],
+                    'lang' => $locale,
+                ]);
+
+                foreach ($row['addons'] as $addon) {
+                    OrderAddon::create([
+                        'order_id' => $order->id,
+                        'order_item_id' => $orderItem->id,
+                        'addon_id' => $addon['id'],
+                        'addon_name' => $addon['name'],
+                        'addon_price' => $addon['price'],
+                        'lang' => $locale,
+                    ]);
+                }
+            }
+
+            return $order;
+        });
+
+        session()->forget('cart');
+
+        $order->load('items.addons');
+
+        if ($order->email) {
+            try {
+                Mail::to($order->email)->send(new OrderPlacedMail($order));
+            } catch (\Throwable $e) {
+                Log::error('Order mail failed: ' . $e->getMessage());
+            }
+        }
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => __('Your order has been placed!'),
+                'order_no' => $order->order_no,
+                'redirect' => route('menu'),
+            ]);
+        }
+
+        return redirect()->route('menu')->with('success', __('Your order has been placed!'));
     }
 
-    $orderNote = trim((string) $request->note);
+    // private function generateOrderNo()
+    // {
+    //     do {
+    //         $no = 'ORD-' . date('Ymd') . '-' . strtoupper(bin2hex(random_bytes(3)));
+    //     } while (Order::where('order_no', $no)->exists());
 
-    // TODO: persist the order to your orders table here.
-    // $order = Order::create([
-    //     'name' => $request->name, 'mobile' => $request->mobile,
-    //     'email' => $request->email, 'address' => $request->address,
-    //     'note' => $orderNote,
-    //     'total' => $total, 'locale' => $locale, 'items' => $items,
-    // ]);
-
-    session()->forget('cart');
-
-    return redirect()->route('menu')->with('success', __('Your order has been placed!'));
-}
+    //     return $no;
+    // }
 
     /**
      * Build cart lines with re-resolved (locale-aware) prices + addons.
-     * Returns [items, total, addonsByCategory].
      */
     private function buildCart($locale, $fallback)
     {
@@ -130,7 +225,6 @@ class CheckoutController extends Controller
             $cart[$key]['image'] = $item->image ? asset('public/storage/' . $item->image) : null;
             $cart[$key]['category_id'] = $item->category_id;
 
-            // Re-resolve addons
             $addonList = [];
             $addonTotal = 0;
 
@@ -188,7 +282,6 @@ class CheckoutController extends Controller
             session()->put('cart', $cart);
         }
 
-        // Addons grouped by category (only categories present in cart)
         $addonsByCategory = [];
         if (!empty($categoryIds)) {
             $addons = Addon::query()->where('status', 1)->whereIn('category_id', array_unique($categoryIds))->orderBy('name')->get();

@@ -33,7 +33,7 @@ class ItemController extends Controller
                 if ($item->image) {
                     return '<img src="' . asset('public/storage/' . $item->image) . '" class="rounded" style="width:44px;height:44px;object-fit:cover;">';
                 }
-                return '<span class="text-muted">—</span>';
+                return '<img src="'.asset('assets/img/no-img-item.png').'" class="rounded" style="width:44px;height:44px;object-fit:cover;">';
             })
             ->addColumn('category_name', function ($item) {
                 return optional($item->category)->name ?? '-';

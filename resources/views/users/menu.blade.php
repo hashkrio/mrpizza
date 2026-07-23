@@ -9,7 +9,7 @@
         <div class="hero-shape"></div>
         <div class="container text-center position-relative">
             <span class="hero-eyebrow">{{ __('Our Delicious') }}</span>
-            <h1 class="menu-hero-title">{{ __('Explore Our Menu') }}</h1>
+            <h2 class="menu-hero-title">{{ __('Explore Our Menu') }}</h2>
             <p class="menu-hero-text">
                 {{ __('Handcrafted with the freshest ingredients and baked to perfection in our fire wood oven.') }}
             </p>
@@ -17,7 +17,7 @@
     </section>
 
     {{-- ===================== MENU BODY ===================== --}}
-    <section class="menu-body py-6">
+    <section class="menu-body bg-cream py-6">
         <div class="container">
 
             {{-- Category filter tabs --}}

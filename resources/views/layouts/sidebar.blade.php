@@ -2,7 +2,8 @@
     <div class="app-brand demo">
         <a href="{{ route('admin.dashboard') }}" class="app-brand-link">
             <span class="app-brand-logo demo">
-                <img src="{{ company_logo() }}" alt="{{ company_name() }}" style="max-height: auto; width: auto;">
+                <img src="{{ company_logo() ?? asset('/assets/img/logo.png') }}" alt="{{ company_name() }}"
+                    style="max-height: auto; width: auto;">
             </span>
         </a>
 
@@ -48,6 +49,13 @@
             <a href="{{ route('admin.addons.index') }}" class="menu-link">
                 <i class="menu-icon icon-base ti tabler-shopping-cart-plus"></i>
                 <div>{{ __('Add-ons') }}</div>
+            </a>
+        </li>
+
+        <li class="menu-item {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.orders.index') }}" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-list-details"></i>
+                <div>{{ __('Orders') }}</div>
             </a>
         </li>
 

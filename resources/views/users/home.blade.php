@@ -6,7 +6,7 @@
 
     {{-- ===================== HERO ===================== --}}
     <section class="hero-section">
-        <div class="hero-shape"></div>
+        {{-- <div class="hero-shape"></div> --}}
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6" data-animate="fade-right">
@@ -41,7 +41,7 @@
     </section>
 
     {{-- ===================== ABOUT 1 ===================== --}}
-    <section class="about-section py-6" id="aboutSection">
+    <section class="about-section bg-cream py-6" id="aboutSection">
         <div class="container">
             <div class="row align-items-center gy-4">
                 <div class="col-lg-5" data-animate="fade-up">
@@ -77,7 +77,7 @@
             <div class="row gy-4">
                 <div class="col-md-4" data-animate="zoom">
                     <div class="feature-item">
-                        <div class="feature-ic"><i class="icon-base ti tabler-tools-kitchen-2"></i></div>
+                        <div class="feature-ic"><i class="ti tabler-tools-kitchen-2"></i></div>
                         <div>
                             <h5>ABSOLUTE DINING</h5>
                             <p>Cozy in-house dining</p>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="col-md-4" data-animate="zoom">
                     <div class="feature-item">
-                        <div class="feature-ic"><i class="icon-base ti tabler-box-seam"></i></div>
+                        <div class="feature-ic"><i class="ti tabler-box-seam"></i></div>
                         <div>
                             <h5>FAST DELIVERY</h5>
                             <p>Hot food within 30 minutes</p>
@@ -95,7 +95,7 @@
                 </div>
                 <div class="col-md-4" data-animate="zoom">
                     <div class="feature-item">
-                        <div class="feature-ic"><i class="icon-base ti tabler-paper-bag"></i></div>
+                        <div class="feature-ic"><i class="ti tabler-paper-bag"></i></div>
                         <div>
                             <h5>PICKUP READY</h5>
                             <p>Grab your order on the go</p>
@@ -179,7 +179,7 @@
     </section>
 
     {{-- ===================== WELCOME / GALLERY ===================== --}}
-    <section class="welcome-section" id="bookingSection">
+    <section class="welcome-section bg-cream" id="bookingSection">
         <div class="container">
             <div class="row align-items-center gy-4">
                 <div class="col-lg-5" data-animate="fade-right">

@@ -1,22 +1,52 @@
 /* =========================================================
    Mr. Pizza Tavira — Custom Styles
    =========================================================
-   STRUCTURE
-   1. Base / Variables
-   2. Components (buttons, header, hero, sections, cart, etc.)
-   3. RESPONSIVE LAYER (at the very bottom)
-      - Large Desktop / iMac / Mac  (max 1399.98px & up ranges)
-      - Standard Desktop            (max 1199.98px)
-      - Tablet Landscape            (max 991.98px)
-      - Tablet Portrait             (max 767.98px)
-      - Mobile Landscape            (max 575.98px)
-      - Small Mobile                (max 400px)
+   TABLE OF CONTENTS
+   -------------------------------------------------------
+   01. ROOT VARIABLES
+   02. BASE / RESET
+   03. UTILITIES (spacing, colors, icons, borders)
+   04. BUTTONS
+   05. SECTION HEADINGS (eyebrow / title / text)
+   06. HEADER / NAVBAR
+   07. OFFCANVAS SIDE NAV (mobile)
+   08. HERO
+   09. ABOUT SECTIONS (circle image, steam, flame card)
+   10. FEATURES STRIP
+   11. SPECIAL MENU
+   12. WELCOME / GALLERY
+   13. CONTACT
+   14. FOOTER
+   15. SCROLL TOP BUTTON
+   16. SCROLL ANIMATIONS
+   17. AUTH / PROFILE
+   18. MENU PAGE (hero, filters, dish cards)
+   19. ITEM DETAIL PAGE
+   20. CART PAGE (panel, items, stepper, summary, empty)
+   21. CHECKOUT (addons, notes, form)
+   22. MY ORDERS PAGE
+   23. PAGINATION OVERRIDE
+   24. KEYFRAMES (all animations collected)
+   25. RESPONSIVE LAYER
+       25.1  Large Desktop / iMac        (min-width: 1400px)
+       25.2  Standard Desktop / MacBook  (max-width: 1199.98px)
+       25.3  Tablet Landscape            (max-width: 991.98px)
+       25.4  Tablet Portrait             (max-width: 767.98px)
+       25.5  Mobile Landscape            (max-width: 575.98px)
+       25.6  Small Mobile                (max-width: 400px)
+       25.7  Reduced Motion              (accessibility)
    ========================================================= */
 
+
+/* =========================================================
+   01. ROOT VARIABLES
+   ========================================================= */
 :root {
+    /* Brand colors */
     --red: #820300;
     --red-dark: #c0392b;
     --red-deep: #8e2a20;
+    --red-light: #ff877ca1;
     --green: #2e8b4e;
     --green-dark: #237a40;
     --yellow: #f2b33d;
@@ -26,14 +56,20 @@
     --muted: #7a828e;
     --white: #ffffff;
 
+    /* Typography */
     --font-display: "Fredoka", sans-serif;
     --font-body: "Poppins", sans-serif;
 
+    /* Shape & motion */
     --radius: 14px;
     --shadow: 0 18px 40px rgba(42, 16, 10, 0.12);
     --transition: 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+
+/* =========================================================
+   02. BASE / RESET
+   ========================================================= */
 * {
     box-sizing: border-box;
 }
@@ -65,17 +101,29 @@ img {
     height: auto;
 }
 
+
+/* =========================================================
+   03. UTILITIES
+   ========================================================= */
+
+/* ---------- Spacing ---------- */
 .py-6 {
     padding-top: 90px;
     padding-bottom: 90px;
 }
 
-/* ---------- Utility text colors ---------- */
-.text-red {
-    color: var(--red) !important;
+/* ---------- Borders ---------- */
+.border-red {
+    border-bottom: 1px solid var(--red) !important;
 }
 
-.btn.btn-link {
+/* ---------- Backgrounds ---------- */
+.bg-cream {
+    background: var(--cream);
+}
+
+/* ---------- Text colors ---------- */
+.text-red {
     color: var(--red) !important;
 }
 
@@ -91,7 +139,48 @@ img {
     color: #fff;
 }
 
-/* ---------- Buttons ---------- */
+.btn.btn-link {
+    color: var(--red) !important;
+}
+
+.phone-link {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+.phone-link:hover {
+    color: var(--red);
+}
+
+/* ---------- Icon sizes ---------- */
+.small-icon {
+    font-size: 16px;
+    inline-size: 16px;
+    block-size: 16px;
+}
+
+.medium-icon {
+    font-size: 24px;
+    inline-size: 24px;
+    block-size: 24px;
+}
+
+.large-icon {
+    font-size: 32px;
+    inline-size: 32px;
+    block-size: 32px;
+}
+
+.xl-icon {
+    font-size: 48px;
+    inline-size: 48px;
+    block-size: 48px;
+}
+
+
+/* =========================================================
+   04. BUTTONS
+   ========================================================= */
 .btn-brand {
     background: var(--green);
     color: #fff;
@@ -106,14 +195,10 @@ img {
 }
 
 .btn-brand:hover {
-    background: var(--green-dark);
+    background: var(--yellow);
     color: #fff;
     transform: translateY(-3px);
     box-shadow: 0 16px 30px rgba(46, 139, 78, 0.38);
-}
-
-.navbar-user-links {
-    column-gap: 26px;
 }
 
 .btn-outline-brand {
@@ -142,7 +227,10 @@ img {
     transform: translateY(-2px);
 }
 
-/* ---------- Section eyebrow / titles ---------- */
+
+/* =========================================================
+   05. SECTION HEADINGS
+   ========================================================= */
 .section-eyebrow {
     display: inline-flex;
     align-items: center;
@@ -176,17 +264,9 @@ img {
     font-size: 0.98rem;
 }
 
-.phone-link {
-    color: var(--ink);
-    font-weight: 600;
-}
-
-.phone-link:hover {
-    color: var(--red);
-}
 
 /* =========================================================
-   HEADER / NAVBAR
+   06. HEADER / NAVBAR
    ========================================================= */
 .site-header {
     position: sticky;
@@ -211,13 +291,14 @@ img {
     /* box-shadow: 0 6px 16px rgba(0, 0, 0, .15); */
 }
 
+/* ---------- Nav links ---------- */
 .navbar-nav .nav-link {
     color: rgba(255, 255, 255, 0.9);
     font-weight: 700;
     margin: 0 12px;
     position: relative;
     padding: 6px 2px;
-    font-size: 17px;
+    font-size: 20px;
 }
 
 .navbar-nav .nav-link::after {
@@ -241,6 +322,11 @@ img {
     width: 100%;
 }
 
+.navbar-user-links {
+    column-gap: 26px;
+}
+
+/* ---------- Toggler ---------- */
 .navbar-toggler {
     border: none;
     color: #fff;
@@ -252,6 +338,7 @@ img {
     box-shadow: none;
 }
 
+/* ---------- Cart button ---------- */
 .cart-btn {
     position: relative;
     color: #fff;
@@ -266,8 +353,8 @@ img {
 
 .cart-count {
     position: absolute;
-    top: -8px;
-    right: -12px;
+    top: -5px;
+    right: -6px;
     background: var(--yellow);
     color: var(--char);
     font-size: 0.7rem;
@@ -282,8 +369,9 @@ img {
     font-family: var(--font-body);
 }
 
+
 /* =========================================================
-   OFFCANVAS SIDE NAV (mobile) — full width, no backdrop
+   07. OFFCANVAS SIDE NAV (mobile) — full width, no backdrop
    ========================================================= */
 .offcanvas.offcanvas-start {
     background: var(--red);
@@ -314,15 +402,16 @@ img {
 .offcanvas .navbar-nav .nav-link {
     margin: 4px 0;
     padding: 12px 4px;
-    font-size: 18px;
+    font-size: 32px;
 }
 
 .offcanvas .navbar-nav .nav-link::after {
     display: none;
 }
 
+
 /* =========================================================
-   HERO
+   08. HERO
    ========================================================= */
 .hero-section {
     position: relative;
@@ -337,14 +426,15 @@ img {
     right: 0;
     bottom: -2px;
     height: 90px;
-    background: #fff;
+    background: var(--cream);
     border-radius: 50% 50% 0 0 / 100% 100% 0 0;
     transform: scaleX(1.5);
 }
 
+/* ---------- Hero copy ---------- */
 .hero-eyebrow {
     color: rgba(255, 255, 255, 0.85);
-    font-weight: 500;
+    font-weight: 900;
     letter-spacing: 0.04em;
     display: inline-block;
     margin-bottom: 14px;
@@ -364,30 +454,7 @@ img {
     font-size: 0.96rem;
 }
 
-/* .hero-image-wrap {
-    position: relative;
-    text-align: center;
-}
-
-.hero-disc {
-    position: absolute;
-    inset: 8% 4% auto auto;
-    width: 90%;
-    aspect-ratio: 1;
-    background: var(--green);
-    border-radius: 50%;
-    right: 45px;
-    top: -3%;
-    z-index: 1;
-}
-
-.hero-pizza {
-    position: relative;
-    z-index: 2;
-    max-width: 80%;
-    filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .35));
-} */
-
+/* ---------- Hero image ---------- */
 .hero-image-wrap {
     position: relative;
     text-align: center;
@@ -397,15 +464,16 @@ img {
     min-height: 420px;
 }
 
-/* Green circle behind the pizza — now centered on the pizza frame */
+/* Green circle behind the pizza — centered on the pizza frame */
 .hero-disc {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 420px;
-    height: 420px;
-    max-width: 90%;
+    /* height: 420px; */
+    max-width: 100%;
+    max-height: 100%;
     aspect-ratio: 1;
     background: var(--green);
     border-radius: 50%;
@@ -430,11 +498,15 @@ img {
 .hero-pizza {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    /* fills the circle no matter the image ratio */
-    filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.35));
+    /* object-fit: cover; */
 }
 
+/* Spinning pizza helper */
+.spin-slow {
+    animation: spin 40s linear infinite;
+}
+
+/* ---------- Best offer badge ---------- */
 .best-offer {
     position: absolute;
     top: 4%;
@@ -465,30 +537,9 @@ img {
     font-weight: 600;
 }
 
-/* spinning pizza */
-.spin-slow {
-    animation: spin 40s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes pulse {
-    0%,
-    100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.08);
-    }
-}
 
 /* =========================================================
-   ABOUT SECTIONS
+   09. ABOUT SECTIONS
    ========================================================= */
 .about-img-frame {
     position: relative;
@@ -500,6 +551,7 @@ img {
     z-index: 1;
 }
 
+/* ---------- Circle image ---------- */
 .about-circle-img {
     width: 340px;
     max-width: 100%;
@@ -521,18 +573,19 @@ img {
     z-index: 1;
 }
 
-/* --- Continuous Steam Effect --- */
+.about-circle-img:hover {
+    animation: floating 2s ease-in-out infinite;
+}
 
+/* ---------- Continuous steam effect ---------- */
 .steam-particle {
     position: absolute;
     bottom: 57%;
     width: 10px;
     height: 90px;
-    background: radial-gradient(
-        circle,
-        rgba(255, 255, 255, 0.75) 0%,
-        rgba(255, 255, 255, 0) 75%
-    );
+    background: radial-gradient(circle,
+            rgba(255, 255, 255, 0.75) 0%,
+            rgba(255, 255, 255, 0) 75%);
     border-radius: 50%;
     filter: blur(6px);
     opacity: 0;
@@ -563,42 +616,7 @@ img {
     animation-delay: 4s;
 }
 
-/* STOP steam animation completely when hovered */
-.about-circle-img:hover .steam-particle {
-    animation-play-state: paused;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-@keyframes steamRise {
-    0% {
-        transform: translate(0, 0) scale(0.5);
-        opacity: 0;
-    }
-
-    15% {
-        opacity: 0.5;
-    }
-
-    30% {
-        transform: translate(-1px, -20px) scale(0.65);
-    }
-
-    50% {
-        transform: translate(1px, -45px) scale(0.8);
-    }
-
-    70% {
-        transform: translate(-1px, -70px) scale(1);
-        opacity: 0.35;
-    }
-
-    100% {
-        transform: translate(2px, -100px) scale(1.2);
-        opacity: 0;
-    }
-}
-/* card */
+/* ---------- Flame / image-swap card ---------- */
 .about-square-card {
     position: relative;
     width: 100%;
@@ -622,11 +640,9 @@ img {
     content: "";
     position: absolute;
     inset: -50%;
-    background: radial-gradient(
-        circle,
-        rgba(255, 68, 0, 0.4) 0%,
-        rgba(0, 0, 0, 0) 70%
-    );
+    background: radial-gradient(circle,
+            rgba(255, 68, 0, 0.4) 0%,
+            rgba(0, 0, 0, 0) 70%);
     animation: livePulse 3s infinite ease-in-out;
     z-index: 1;
 }
@@ -669,22 +685,9 @@ img {
     transform: scale(1.05);
 }
 
-/* Live glowing animation */
-@keyframes livePulse {
-    0%,
-    100% {
-        transform: scale(0.9);
-        opacity: 0.5;
-    }
-
-    50% {
-        transform: scale(1.1);
-        opacity: 0.9;
-    }
-}
 
 /* =========================================================
-   FEATURES STRIP
+   10. FEATURES STRIP
    ========================================================= */
 .features-strip {
     background: var(--red);
@@ -708,14 +711,30 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.9rem;
-    transition: var(--transition);
+    font-size: 2.2rem !important;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: visible;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Ripple ring */
+.feature-ic::before {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 193, 7, 0.5);
+    transform: scale(0.9);
+    opacity: 0;
+    transition: all 0.4s ease;
 }
 
 .feature-item:hover .feature-ic {
     background: var(--yellow);
     color: var(--char);
-    transform: rotate(-8deg);
+    transform: translateY(-8px) rotate(-8deg) scale(1.12);
+    box-shadow: 0 18px 35px rgba(255, 193, 7, 0.45);
 }
 
 .feature-item h5 {
@@ -731,8 +750,9 @@ img {
     font-size: 0.88rem;
 }
 
+
 /* =========================================================
-   SPECIAL MENU
+   11. SPECIAL MENU
    ========================================================= */
 .menu-section {
     background: var(--green);
@@ -753,6 +773,7 @@ img {
     font-size: 0.92rem;
 }
 
+/* ---------- Menu card ---------- */
 .menu-card {
     background: #fff;
     border-radius: var(--radius);
@@ -793,15 +814,22 @@ img {
     font-size: 1.35rem;
 }
 
+
 /* =========================================================
-   WELCOME / GALLERY
+   12. WELCOME / GALLERY
    ========================================================= */
+.welcome-section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
 .welcome-title {
     font-size: clamp(1.8rem, 3.2vw, 2.6rem);
     line-height: 1.15;
     margin-bottom: 18px;
 }
 
+/* ---------- Checklist ---------- */
 .welcome-list {
     list-style: none;
     padding: 0;
@@ -830,6 +858,7 @@ img {
     flex-shrink: 0;
 }
 
+/* ---------- Gallery grid ---------- */
 .welcome-gallery {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -862,8 +891,9 @@ img {
     transform: translateY(24px);
 }
 
+
 /* =========================================================
-   CONTACT
+   13. CONTACT
    ========================================================= */
 .contact-section {
     position: relative;
@@ -871,6 +901,7 @@ img {
     background: #fff;
 }
 
+/* ---------- Decorative blobs ---------- */
 .contact-blob-green {
     position: absolute;
     left: -165px;
@@ -901,6 +932,7 @@ img {
     text-align: center;
 }
 
+/* ---------- Heading ---------- */
 .contact-heading {
     font-size: clamp(1.8rem, 3vw, 2.4rem);
     margin-bottom: 30px;
@@ -917,6 +949,7 @@ img {
     margin-top: 8px;
 }
 
+/* ---------- Contact items ---------- */
 .contact-item {
     display: flex;
     align-items: center;
@@ -938,30 +971,36 @@ img {
     flex-shrink: 0;
     box-shadow: 0 10px 20px rgba(192, 57, 43, 0.3);
     transition: var(--transition);
+    position: relative;
+    overflow: visible;
+}
+
+/* Ripple ring */
+.contact-ic::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(192, 57, 43, 0.5);
+    animation: ripple 2s infinite;
 }
 
 .contact-item:hover .contact-ic {
-    transform: translateY(-4px);
+    transform: translateY(-4px) scale(1.05);
 }
 
-/* float animation */
+.contact-item:hover .contact-ic::before {
+    animation-duration: 1s;
+}
+
+/* ---------- Float helper ---------- */
 .float-anim {
     animation: floaty 3.5s ease-in-out infinite;
 }
 
-@keyframes floaty {
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-16px);
-    }
-}
 
 /* =========================================================
-   FOOTER
+   14. FOOTER
    ========================================================= */
 .site-footer {
     background: var(--red);
@@ -983,6 +1022,7 @@ img {
     font-weight: 600;
 }
 
+/* ---------- Footer links ---------- */
 .footer-links {
     list-style: none;
     padding: 0;
@@ -1003,6 +1043,7 @@ img {
     padding-left: 5px;
 }
 
+/* ---------- Social icons ---------- */
 .footer-social {
     display: flex;
     gap: 12px;
@@ -1027,6 +1068,7 @@ img {
     transform: translateY(-3px);
 }
 
+/* ---------- Footer contact row ---------- */
 .footer-contact {
     border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
@@ -1044,6 +1086,7 @@ img {
     color: var(--yellow);
 }
 
+/* ---------- Footer bottom bar ---------- */
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.15);
     margin-top: 5px;
@@ -1053,8 +1096,9 @@ img {
     color: rgba(255, 255, 255, 0.7);
 }
 
+
 /* =========================================================
-   SCROLL TOP BUTTON
+   15. SCROLL TOP BUTTON
    ========================================================= */
 .scroll-top {
     position: fixed;
@@ -1086,8 +1130,9 @@ img {
     transform: translateY(-4px);
 }
 
+
 /* =========================================================
-   SCROLL ANIMATIONS
+   16. SCROLL ANIMATIONS
    ========================================================= */
 [data-animate] {
     opacity: 0;
@@ -1118,21 +1163,9 @@ img {
     transform: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    [data-animate] {
-        opacity: 1 !important;
-        transform: none !important;
-    }
-
-    .spin-slow,
-    .float-anim,
-    .best-offer {
-        animation: none !important;
-    }
-}
 
 /* =========================================================
-   AUTH / PROFILE
+   17. AUTH / PROFILE
    ========================================================= */
 .auth-btn {
     position: relative;
@@ -1156,9 +1189,12 @@ img {
     display: none;
 }
 
+
 /* =========================================================
-   MENU PAGE
+   18. MENU PAGE
    ========================================================= */
+
+/* ---------- Menu hero ---------- */
 .menu-hero {
     position: relative;
     background: var(--red-dark);
@@ -1168,7 +1204,7 @@ img {
 
 .menu-hero-title {
     color: #fff;
-    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-size: clamp(2.2rem, 4vw, 3rem);
     margin-bottom: 14px;
 }
 
@@ -1179,11 +1215,7 @@ img {
     font-size: 0.96rem;
 }
 
-.menu-body {
-    background: var(--cream);
-}
-
-/* Filter pills */
+/* ---------- Filter pills ---------- */
 .menu-filter {
     display: flex;
     flex-wrap: wrap;
@@ -1214,13 +1246,7 @@ img {
     box-shadow: 0 10px 22px rgba(46, 139, 78, 0.28);
 }
 
-.welcome-section {
-    padding-top: 50px;
-    padding-bottom: 50px;
-    background: var(--cream);
-}
-
-/* Dish cards */
+/* ---------- Dish cards ---------- */
 .dish-card {
     background: #fff;
     border-radius: var(--radius);
@@ -1280,6 +1306,10 @@ img {
     margin-bottom: 8px;
 }
 
+.dish-title a {
+    color: inherit;
+}
+
 .dish-desc {
     color: var(--muted);
     font-size: 0.85rem;
@@ -1296,7 +1326,6 @@ img {
 }
 
 .dish-price {
-    background: var(--cream);
     color: var(--char);
     font-weight: 700;
     font-family: var(--font-display);
@@ -1316,12 +1345,9 @@ img {
     letter-spacing: 0.04em;
 }
 
-.dish-title a {
-    color: inherit;
-}
 
 /* =========================================================
-   ITEM DETAIL PAGE
+   19. ITEM DETAIL PAGE
    ========================================================= */
 .detail-body {
     background: var(--cream);
@@ -1373,15 +1399,16 @@ img {
     margin-top: 10px;
 }
 
+
 /* =========================================================
-   CART PAGE
+   20. CART PAGE
    ========================================================= */
 .cart-body {
     background: var(--cream);
     min-height: 60vh;
 }
 
-/* ---- Cart items panel ---- */
+/* ---------- Cart items panel ---------- */
 .cart-panel {
     background: #fff;
     border-radius: var(--radius);
@@ -1419,7 +1446,7 @@ img {
     color: var(--red);
 }
 
-/* ---- Cart item row ---- */
+/* ---------- Cart item row ---------- */
 .cart-item {
     display: grid;
     grid-template-columns: 84px 1fr auto;
@@ -1498,7 +1525,7 @@ img {
     white-space: nowrap;
 }
 
-/* ---- Quantity stepper ---- */
+/* ---------- Quantity stepper ---------- */
 .qty-stepper {
     display: inline-flex;
     align-items: center;
@@ -1555,6 +1582,7 @@ img {
     outline: none;
 }
 
+/* ---------- Remove button ---------- */
 .cart-remove {
     background: transparent;
     border: none;
@@ -1574,7 +1602,7 @@ img {
     color: var(--red);
 }
 
-/* ---- Continue shopping link ---- */
+/* ---------- Continue shopping link ---------- */
 .cart-continue {
     display: inline-flex;
     align-items: center;
@@ -1589,13 +1617,13 @@ img {
     color: var(--green);
 }
 
-/* ---- Order summary ---- */
+/* ---------- Order summary ---------- */
 .cart-summary {
     background: #fff;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     padding: 26px;
-    position: sticky;
+    /* position: sticky; */
     top: 100px;
 }
 
@@ -1653,7 +1681,7 @@ img {
     margin-top: 14px;
 }
 
-/* ---- Empty state ---- */
+/* ---------- Empty state ---------- */
 .cart-empty {
     text-align: center;
     padding: 60px 20px;
@@ -1684,7 +1712,12 @@ img {
     margin: 0 auto 24px;
 }
 
-/* ---- Cart addons (Select2 multiple) ---- */
+
+/* =========================================================
+   21. CHECKOUT
+   ========================================================= */
+
+/* ---------- Cart addons (Select2 multiple) ---------- */
 .cart-item-addons {
     grid-column: 1 / -1;
     padding-top: 12px;
@@ -1702,7 +1735,7 @@ img {
     margin-bottom: 8px;
 }
 
-/* ---- Checkout ---- */
+/* ---------- Checkout note ---------- */
 .checkout-note {
     grid-column: 1 / -1;
     margin-top: 10px;
@@ -1747,7 +1780,7 @@ img {
     opacity: 1;
 }
 
-/* Customer details form */
+/* ---------- Customer details form ---------- */
 .checkout-form .form-label {
     font-weight: 600;
     font-size: 0.85rem;
@@ -1766,6 +1799,7 @@ img {
     box-shadow: none;
 }
 
+/* ---------- Order note wrapper ---------- */
 .order-note-wrap {
     padding: 18px 24px 20px;
     border-top: 1px dashed rgba(42, 16, 10, 0.12);
@@ -1790,48 +1824,258 @@ img {
     box-shadow: none;
 }
 
+
+/* =========================================================
+   22. MY ORDERS PAGE
+   ========================================================= */
+.myorder-body {
+    background: var(--cream);
+    min-height: 60vh;
+}
+
+/* Status pill — brand colors Bootstrap doesn't have */
+.myorder-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.myorder-status::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+/* ---------- Toggle chevron rotate ---------- */
+.myorder-toggle[aria-expanded="true"] {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+}
+
+.myorder-toggle i {
+    transition: transform 0.3s ease;
+}
+
+.myorder-toggle[aria-expanded="true"] i {
+    transform: rotate(180deg);
+}
+
+/* ---------- Addon chip ---------- */
+.myorder-chip {
+    color: var(--char);
+    font-size: 0.75rem;
+    padding: 3px 12px;
+    border-radius: 100px;
+    border: 1px solid rgba(42, 16, 10, 0.08);
+}
+
+.myorder-chip span {
+    color: var(--green);
+    font-weight: 600;
+}
+
+/* ---------- Empty state icon ---------- */
+.myorder-empty-ic {
+    width: 110px;
+    height: 110px;
+    background: #fff;
+    color: var(--red);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    box-shadow: var(--shadow);
+}
+
+
+/* =========================================================
+   23. PAGINATION OVERRIDE
+   ========================================================= */
+span.page-link.waves-effect.waves-light,
+a.page-link.waves-effect,
+span.page-link.waves-effect {
+    padding: 0px;
+}
+
+
+/* =========================================================
+   24. KEYFRAMES
+   ========================================================= */
+
+/* Hero pizza rotation */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Best-offer badge breathing */
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+/* About circle image hover float */
+@keyframes floating {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Steam particles rising from the pizza */
+@keyframes steamRise {
+    0% {
+        transform: translate(0, 0) scale(0.5);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.5;
+    }
+
+    30% {
+        transform: translate(-1px, -20px) scale(0.65);
+    }
+
+    50% {
+        transform: translate(1px, -45px) scale(0.8);
+    }
+
+    70% {
+        transform: translate(-1px, -70px) scale(1);
+        opacity: 0.35;
+    }
+
+    100% {
+        transform: translate(2px, -100px) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* Flame card ember glow */
+@keyframes livePulse {
+
+    0%,
+    100% {
+        transform: scale(0.9);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.9;
+    }
+}
+
+/* Contact icon ripple ring */
+@keyframes ripple {
+    0% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+
+    70% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1.6);
+        opacity: 0;
+    }
+}
+
+/* Generic floating helper (.float-anim) */
+@keyframes floaty {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-16px);
+    }
+}
+
+
 /* =========================================================
    =========================================================
-   RESPONSIVE LAYER
+   25. RESPONSIVE LAYER
    All breakpoints below, largest → smallest.
    Comments show target device + screen size.
    =========================================================
    ========================================================= */
 
+
 /* =========================================================
-   LARGE DESKTOP / iMAC / LARGE MAC
-   Screens ≥ 1400px (Bootstrap XXL and up)
+   25.1  LARGE DESKTOP / iMAC / LARGE MAC
+   ---------------------------------------------------------
+   Screens ≥ 1400px  (Bootstrap XXL and up)
    Widen containers and scale hero for big Mac displays.
+   Affects: container, hero, about circle, welcome gallery
    ========================================================= */
 @media (min-width: 1400px) {
+
+    /* -- Layout container -- */
     .container,
     .container-xxl {
         max-width: 1320px;
     }
 
+    /* -- Hero -- */
     .hero-section {
-        padding: 90px 0 150px;
+        padding: 90px 0 90px;
     }
 
     .hero-title {
         font-size: 4rem;
     }
 
+    /* -- About -- */
     .about-circle-img {
         width: 380px;
     }
 
+    /* -- Welcome gallery -- */
     .welcome-gallery {
         grid-auto-rows: 240px;
     }
 }
 
+
 /* =========================================================
-   STANDARD DESKTOP / SMALLER MAC (MacBook 13"–14")
-   Screens ≤ 1199.98px (Bootstrap LG max)
+   25.2  STANDARD DESKTOP / SMALLER MAC (MacBook 13"–14")
+   ---------------------------------------------------------
+   Screens ≤ 1199.98px  (Bootstrap LG max)
    Tighten spacing so content fits laptop viewports.
+   Affects: navbar, hero, about, gallery, cart, detail
    ========================================================= */
 @media (max-width: 1199.98px) {
+
+    /* -- Navbar -- */
     .navbar-nav .nav-link {
         margin: 0 8px;
         font-size: 16px;
@@ -1841,44 +2085,59 @@ img {
         column-gap: 18px;
     }
 
+    /* -- Hero -- */
     .hero-section {
         padding: 60px 0 120px;
     }
 
+    /* -- About -- */
     .about-circle-img {
         width: 300px;
     }
 
+    /* -- Welcome gallery -- */
     .welcome-gallery {
         grid-auto-rows: 175px;
     }
 
+    /* -- Cart -- */
     .cart-summary {
         top: 90px;
     }
 
+    /* -- Item detail -- */
     .detail-img {
         height: 340px;
     }
 }
 
+
 /* =========================================================
-   TABLET LANDSCAPE (iPad landscape / small laptop)
-   Screens ≤ 991.98px (Bootstrap MD max)
+   25.3  TABLET LANDSCAPE (iPad landscape / small laptop)
+   ---------------------------------------------------------
+   Screens ≤ 991.98px  (Bootstrap MD max)
    Collapsed navbar, stacked hero, centered text.
+   Affects: header, hero, spacing, about, gallery,
+            menu section, detail, cart summary, features
    ========================================================= */
 @media (max-width: 991.98px) {
+
+    /* -- Header / navbar -- */
     /* .site-header .navbar-collapse {
         background: var(--red-dark);
         margin-top: 12px;
         padding: 16px;
         border-radius: 14px;
     } */
+    .site-header {
+        padding: 20px !important;
+    }
 
     .navbar-nav .nav-link {
         margin: 4px 0;
     }
 
+    /* -- Hero: stack and center -- */
     .hero-section {
         padding: 50px 0 100px;
         text-align: center;
@@ -1893,21 +2152,24 @@ img {
         margin-top: 40px;
     }
 
+    /* -- Global section spacing -- */
     .py-6 {
         padding-top: 60px;
         padding-bottom: 60px;
     }
 
+    /* -- About -- */
     .about-circle-img {
         margin-top: 20px;
     }
 
+    /* -- Welcome gallery: remove offset stagger -- */
     .welcome-gallery .wg-2,
     .welcome-gallery .wg-3 {
         transform: none;
     }
 
-    /* Menu & detail spacing */
+    /* -- Menu & detail spacing -- */
     .menu-section {
         padding: 60px 0;
     }
@@ -1916,42 +2178,55 @@ img {
         height: 300px;
     }
 
-    /* Cart summary no longer sticks on tablet */
+    /* -- Cart summary no longer sticks on tablet -- */
     .cart-summary {
         position: static;
         margin-top: 24px;
     }
 
-    /* Features become 2-up nicely */
+    /* -- Features become 2-up nicely -- */
     .feature-item {
         margin-bottom: 24px;
     }
 }
 
+
 /* =========================================================
-   TABLET PORTRAIT (iPad portrait)
-   Screens ≤ 767.98px (Bootstrap SM max)
+   25.4  TABLET PORTRAIT (iPad portrait)
+   ---------------------------------------------------------
+   Screens ≤ 767.98px  (Bootstrap SM max)
    Single-column layouts, restacked cart item grid.
+   Affects: header, spacing, headings, welcome list,
+            cart item grid, detail card, contact, my orders
    ========================================================= */
 @media (max-width: 767.98px) {
+
+    /* -- Header -- */
+    .site-header {
+        padding: 20px !important;
+    }
+
+    /* -- Global section spacing -- */
     .py-6 {
         padding-top: 50px;
         padding-bottom: 50px;
     }
 
+    /* -- Center all major headings -- */
     .section-title,
     .welcome-title,
     .menu-heading {
         text-align: center;
     }
 
+    /* -- Welcome list centered -- */
     .welcome-list {
         max-width: 420px;
         margin-left: auto;
         margin-right: auto;
     }
 
-    /* Cart item restacks: thumb + info on top, actions below */
+    /* -- Cart item restacks: thumb + info on top, actions below -- */
     .cart-item {
         grid-template-columns: 64px 1fr;
         grid-template-areas:
@@ -1980,10 +2255,12 @@ img {
         border-top: 1px solid rgba(42, 16, 10, 0.06);
     }
 
+    /* -- Item detail -- */
     .detail-card {
         padding: 18px;
     }
 
+    /* -- Contact heading centers -- */
     .contact-heading {
         display: block;
         text-align: center;
@@ -1993,14 +2270,47 @@ img {
         margin-left: auto;
         margin-right: auto;
     }
+
+    /* -- My orders: stack rows -- */
+    .myorder-head {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px 18px;
+    }
+
+    .myorder-head-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .myorder-item {
+        flex-direction: column;
+        gap: 10px;
+        padding: 16px 18px;
+    }
+
+    .myorder-item-price {
+        align-self: flex-end;
+    }
 }
 
+
 /* =========================================================
-   MOBILE LANDSCAPE / LARGE PHONES
-   Screens ≤ 575.98px (Bootstrap XS max)
+   25.5  MOBILE LANDSCAPE / LARGE PHONES
+   ---------------------------------------------------------
+   Screens ≤ 575.98px  (Bootstrap XS max)
    Smaller hero text, tighter menu pills, hidden blobs.
+   Affects: header, hero, gallery, features, menu page,
+            contact blobs, buttons, cart panel & summary
    ========================================================= */
 @media (max-width: 575.98px) {
+
+    /* -- Header -- */
+    .site-header {
+        padding: 20px !important;
+    }
+
+    /* -- Hero -- */
     .hero-title {
         font-size: 2.2rem;
     }
@@ -2009,16 +2319,19 @@ img {
         padding: 40px 0 90px;
     }
 
+    /* -- Welcome gallery -- */
     .welcome-gallery {
         grid-auto-rows: 150px;
         gap: 12px;
     }
 
+    /* -- Features -- */
     .feature-item {
         justify-content: center;
         text-align: left;
     }
 
+    /* -- Menu section & menu page hero -- */
     .menu-section {
         padding: 60px 0;
     }
@@ -2032,6 +2345,7 @@ img {
         font-size: 0.85rem;
     }
 
+    /* -- Contact: hide decorative blobs -- */
     .contact-blob-green,
     .contact-blob-tomato {
         display: none;
@@ -2041,16 +2355,17 @@ img {
         width: 120px;
     }
 
-    /* Buttons full-width feel on small screens */
+    /* -- Buttons full-width feel on small screens -- */
     .btn-brand {
         padding: 11px 24px;
     }
 
-    /* Summary total scales down */
+    /* -- Summary total scales down -- */
     .summary-total .amount {
         font-size: 1.4rem;
     }
 
+    /* -- Cart spacing -- */
     .cart-panel-head {
         padding: 16px 18px;
     }
@@ -2064,12 +2379,23 @@ img {
     }
 }
 
+
 /* =========================================================
-   SMALL MOBILE (iPhone SE / older / narrow Androids)
+   25.6  SMALL MOBILE (iPhone SE / older / narrow Androids)
+   ---------------------------------------------------------
    Screens ≤ 400px
    Final tightening for the smallest viewports.
+   Affects: header, hero, titles, badge, gallery,
+            menu filters, cart rows, scroll-top button
    ========================================================= */
 @media (max-width: 400px) {
+
+    /* -- Header -- */
+    .site-header {
+        padding: 20px !important;
+    }
+
+    /* -- Hero & titles -- */
     .hero-title {
         font-size: 1.9rem;
     }
@@ -2078,6 +2404,7 @@ img {
         font-size: 1.5rem;
     }
 
+    /* -- Best offer badge shrinks -- */
     .best-offer {
         width: 74px;
         height: 74px;
@@ -2091,11 +2418,13 @@ img {
         font-size: 0.8rem;
     }
 
+    /* -- Welcome gallery goes single column -- */
     .welcome-gallery {
         grid-template-columns: 1fr;
         grid-auto-rows: 200px;
     }
 
+    /* -- Menu filters -- */
     .menu-filter {
         gap: 8px;
     }
@@ -2105,6 +2434,7 @@ img {
         font-size: 0.8rem;
     }
 
+    /* -- Cart rows -- */
     .cart-item-name {
         font-size: 1rem;
     }
@@ -2118,10 +2448,31 @@ img {
         height: 28px;
     }
 
+    /* -- Scroll top button -- */
     .scroll-top {
         right: 16px;
         bottom: 16px;
         width: 42px;
         height: 42px;
+    }
+}
+
+
+/* =========================================================
+   25.7  REDUCED MOTION (accessibility preference)
+   ---------------------------------------------------------
+   Disables scroll animations and looping decorations
+   for users who prefer reduced motion.
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+    [data-animate] {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .spin-slow,
+    .float-anim,
+    .best-offer {
+        animation: none !important;
     }
 }

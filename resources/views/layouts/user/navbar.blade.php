@@ -5,13 +5,13 @@
             {{-- LEFT: Hamburger (mobile) --}}
             <button class="navbar-toggler border-0 p-0 d-lg-none order-1" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#sideNav" aria-controls="sideNav" aria-label="Toggle navigation">
-                <i class="icon-base nav-icon ti tabler-menu-2 fs-3"></i>
+                <i class="icon-base nav-icon ti tabler-menu-2 large-icon"></i>
             </button>
 
             {{-- Brand / Logo (desktop only in navbar, hidden on mobile) --}}
             <a class="navbar-brand d-none d-lg-flex align-items-center order-1" href="{{ url('/') }}">
                 <span class="logo-chip">
-                    <img src="{{ asset(company_logo()) }}" alt="{{ company_name() }}" height="40">
+                    <img src="{{ company_logo() ?? asset('/assets/img/logo.png') }}" alt="{{ company_name() }}" height="40">
                 </span>
             </a>
 
@@ -50,7 +50,7 @@
                 <div class="dropdown">
                     <a class="text-white" href="javascript:void(0);" data-bs-toggle="dropdown"
                         aria-label="Select Language">
-                        <i class="icon-base nav-icon ti tabler-language"></i>
+                        <i class="icon-base nav-icon ti tabler-language large-icon"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         @foreach ($languages as $lang)
@@ -64,10 +64,10 @@
 
                 @guest
                     <a href="{{ route('login') }}" class="auth-btn" aria-label="Login" title="Login">
-                        <i class="icon-base nav-icon ti tabler-login-2"></i>
+                        <i class="icon-base nav-icon ti tabler-login-2 large-icon"></i>
                     </a>
                     <a href="{{ route('register') }}" class="auth-btn" aria-label="Register" title="Register">
-                        <i class="icon-base nav-icon ti tabler-user-plus"></i>
+                        <i class="icon-base nav-icon ti tabler-user-plus large-icon"></i>
                     </a>
                 @endguest
 
@@ -79,25 +79,25 @@
                                 <img src="{{ asset(Auth::user()->avatar) }}" alt="Profile" class="profile-avatar"
                                     width="34" height="34">
                             @else
-                                <i class="icon-base nav-icon ti tabler-user-circle"></i>
+                                <i class="icon-base nav-icon ti tabler-user-circle large-icon"></i>
                             @endif
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li class="dropdown-header">
-                                <small class="text-muted d-block">{{ __('Signed in as') }}</small>
-                                <strong>{{ Auth::user()->name }}</strong>
+                                <small class="text-muted d-block">{{ __('Signed in as') }} <strong>{{ Auth::user()->name }}</strong></small>
+                                
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                                    <i class="icon-base nav-icon ti tabler-user me-2"></i> {{ __('My Profile') }}
+                                    <i class="icon-base nav-icon ti tabler-user me-2 medium-icon"></i> {{ __('My Profile') }}
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ url('/orders') }}">
-                                    <i class="icon-base nav-icon ti tabler-clipboard-list me-2"></i> {{ __('My Orders') }}
+                                <a class="dropdown-item" href="{{ route('my.orders') }}">
+                                    <i class="icon-base nav-icon ti tabler-clipboard-list me-2 medium-icon"></i> {{ __('My Orders') }}
                                 </a>
                             </li>
                             <li>
@@ -107,7 +107,7 @@
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit" class="dropdown-item text-danger">
-                                        <i class="icon-base nav-icon ti tabler-logout-2 me-2"></i> {{ __('Logout') }}
+                                        <i class="icon-base nav-icon ti tabler-logout-2 medium-icon"></i> {{ __('Logout') }}
                                     </button>
                                 </form>
                             </li>
@@ -118,7 +118,7 @@
                 {{-- Cart --}}
                 @php $cartCount = count(session('cart', [])); @endphp
                 <a href="{{ route('cart') }}" class="cart-btn" aria-label="Cart">
-                    <i class="icon-base nav-icon ti tabler-shopping-cart"></i>
+                    <i class="icon-base nav-icon ti tabler-shopping-cart large-icon"></i>
                     <span class="cart-count {{ $cartCount ? '' : 'd-none' }}"
                         id="cartBadge">{{ $cartCount }}</span>
                 </a>
@@ -138,7 +138,7 @@
             </a>
             <button type="button" class="btn border-0 text-white p-0 fs-3" data-bs-dismiss="offcanvas"
                 aria-label="Close">
-                <i class="icon-base nav-icon ti tabler-x"></i>
+                <i class="icon-base nav-icon ti tabler-x large-icon"></i>
             </button>
         </div>
         <div class="offcanvas-body">
@@ -148,7 +148,7 @@
                         href="{{ url('/') }}">{{ __('Home') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="#aboutSection"
+                    <a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="{{ url('/#aboutSection') }}"
                         data-bs-dismiss="offcanvas">{{ __('About') }}</a>
                 </li>
                 <li class="nav-item">
@@ -156,11 +156,11 @@
                         href="{{ url('/menu') }}">{{ __('Menu') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('booking') ? 'active' : '' }}" href="#bookingSection"
+                    <a class="nav-link {{ request()->is('booking') ? 'active' : '' }}" href="{{ url('/#bookingSection') }}"
                         data-bs-dismiss="offcanvas">{{ __('Booking') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('contact') ? 'active' : '' }}" href="#contactSection"
+                    <a class="nav-link {{ request()->is('contact') ? 'active' : '' }}" href="{{ url('/#contactSection') }}"
                         data-bs-dismiss="offcanvas">{{ __('Contact') }}</a>
                 </li>
             </ul>

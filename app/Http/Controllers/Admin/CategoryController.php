@@ -34,7 +34,7 @@ class CategoryController extends Controller
                     return '<img src="' . asset('public/storage/' . $category->image) . '" class="rounded" style="width:44px;height:44px;object-fit:cover;">';
                 }
 
-                return '<span class="text-muted">—</span>';
+                return '<img src="'.asset('assets/img/no-img-item.png').'" class="rounded" style="width:44px;height:44px;object-fit:cover;">';
             })
 
             ->editColumn('status', function ($category) {

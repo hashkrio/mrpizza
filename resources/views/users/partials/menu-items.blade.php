@@ -38,7 +38,7 @@
         // Sized items (or unpriced) route to the detail page for size selection.
         $canQuickAdd = $base && isset($base['single']);
     @endphp
-    <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
         <div class="dish-card">
             <a href="{{ $detailUrl }}" class="dish-img">
                 <img src="{{ $img }}" alt="{{ $item['name'] }}">

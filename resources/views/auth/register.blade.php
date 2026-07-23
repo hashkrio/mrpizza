@@ -32,7 +32,7 @@
         <!-- Logo -->
         <a href="{{ url('/') }}" class="app-brand auth-cover-brand">
             <span class="app-brand-logo demo">
-                <img src="{{ company_logo() }}" alt="{{ company_name() }}" style="max-height: auto; width: auto;">
+                <img src="{{ company_logo() ?? asset('/assets/img/login.png') }}" alt="{{ company_name() }}" style="max-height: auto; width: auto;">
             </span>
         </a>
         <!-- /Logo -->
@@ -40,7 +40,7 @@
             <!-- Left Text -->
             <div class="d-none d-xl-flex col-xl-8 p-0">
                 <div class="auth-cover-bg d-flex justify-content-center align-items-center">
-                    <img src="{{ login_cover() }}" alt="auth-login-cover" class="my-5 auth-illustration" />
+                    <img src="{{ login_cover() ?? asset('/assets/img/login_cover.png') }}" alt="auth-login-cover" class="my-5 auth-illustration" />
                     <img src="{{ asset('assets/img/illustrations/bg-shape-image-light.png') }}" alt="auth-login-cover"
                         class="platform-bg" />
                 </div>

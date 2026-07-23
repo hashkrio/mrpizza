@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ __('Registration Successful') }}</title>
+    <title>{{ __('Reset Your Password') }}</title>
 
     <style>
-        /* General Reset */
         body {
             margin: 0 !important;
             padding: 0 !important;
@@ -17,7 +16,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Container Styles */
         .wrapper {
             width: 100% !important;
             background-color: #f4f5f8;
@@ -32,7 +30,6 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
-        /* Header */
         .header-bg {
             background-color: #820300;
             padding: 30px 20px;
@@ -55,7 +52,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Body Content */
         .content-body {
             padding: 40px 35px;
             color: #333333;
@@ -70,72 +66,54 @@
         }
 
         .body-text {
-            margin: 0 0 20px;
+            margin: 0 0 16px;
             font-size: 15px;
             line-height: 1.6;
             color: #555555;
         }
 
-        /* User Details Box */
-        .details-table {
-            width: 100%;
-            background-color: #fcfcfc;
-            border: 1px solid #eeeeee;
-            border-radius: 8px;
-            margin: 20px 0 25px;
-            border-collapse: separate;
-            border-spacing: 0;
-        }
-
-        .details-table td {
-            padding: 12px 18px;
-            font-size: 14px;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .details-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .label-cell {
-            font-weight: 600;
-            color: #444444;
-            width: 35%;
-        }
-
-        .value-cell {
-            color: #111111;
-            font-weight: 500;
-        }
-
-        .password-highlight {
-            font-family: 'Courier New', Courier, monospace;
-            background-color: #FFF5F5;
-            color: #C0392B;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-weight: 700;
-            border: 1px dashed #E57373;
-        }
-
-        /* Button */
         .btn-container {
-            margin: 30px 0;
-            text-align: center;
+            margin: 32px 0;
         }
 
-        .btn-login {
+        .reset-btn {
+            display: inline-block;
             background-color: #C0392B;
             color: #ffffff !important;
-            padding: 12px 28px;
-            text-decoration: none;
+            font-size: 16px;
             font-weight: 700;
-            border-radius: 6px;
-            display: inline-block;
-            font-size: 15px;
+            text-decoration: none;
+            padding: 15px 42px;
+            border-radius: 8px;
         }
 
-        /* Misc */
+        .link-fallback {
+            margin: 0 0 12px;
+            font-size: 13px;
+            color: #777777;
+            line-height: 1.6;
+            word-break: break-all;
+        }
+
+        .link-fallback a {
+            color: #C0392B;
+            text-decoration: none;
+        }
+
+        .expiry-text {
+            margin: 0 0 12px;
+            font-size: 14px;
+            color: #444444;
+            line-height: 1.5;
+        }
+
+        .warning-text {
+            margin: 0 0 28px;
+            font-size: 14px;
+            color: #777777;
+            line-height: 1.5;
+        }
+
         .divider {
             border: none;
             border-top: 1px solid #eeeeee;
@@ -153,7 +131,6 @@
             text-align: center;
         }
 
-        /* Footer */
         .footer-bg {
             background-color: #2B2B2B;
             padding: 25px;
@@ -180,9 +157,12 @@
         style="background-color: #f4f5f8; padding: 40px 10px;">
         <tr>
             <td align="center">
+
+                <!-- Main Container -->
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" class="main-card"
                     style="max-width: 600px; background-color: #ffffff; border-radius: 12px; overflow: hidden;">
 
+                    <!-- Header -->
                     <tr>
                         <td align="center" class="header-bg" style="background-color: #7A0A0A; padding: 30px 20px;">
                             @if ($company && $company->logo)
@@ -197,59 +177,55 @@
                         </td>
                     </tr>
 
+                    <!-- Body Content -->
                     <tr>
                         <td class="content-body" style="padding: 40px 35px; color: #333333;">
 
                             <h3 class="greeting-text" style="margin-top: 0; color: #111111; font-size: 20px;">
-                                {{ __('Congratulations') }}, {{ $user->name }}! 🎉
+                                {{ __('Hello') }} {{ $user->name ?? __('Valued Customer') }},
                             </h3>
 
                             <p class="body-text" style="font-size: 15px; color: #555555; line-height: 1.6;">
-                                {{ __('Your account has been successfully created and verified. Below are your account details for future login references') }}:
+                                {{ __('We received a request to reset the password for your account. Click the button below to choose a new password') }}:
                             </p>
 
-                            <table border="0" cellpadding="0" cellspacing="0" class="details-table">
+                            <!-- Reset Button -->
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="btn-container"
+                                style="margin: 32px 0;">
                                 <tr>
-                                    <td class="label-cell">{{ __('Full Name') }}:</td>
-                                    <td class="value-cell">{{ $user->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="label-cell">{{ __('Email Address') }}:</td>
-                                    <td class="value-cell">{{ $user->email }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="label-cell">{{ __('Mobile Number') }}:</td>
-                                    <td class="value-cell">{{ $user->mobile }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="label-cell">{{ __('Password') }}:</td>
-                                    <td class="value-cell">
-                                        <span class="password-highlight">{{ $plainPassword }}</span>
+                                    <td align="center">
+                                        <a href="{{ $link }}" class="reset-btn" target="_blank"
+                                            style="display: inline-block; background-color: #C0392B; color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; padding: 15px 42px; border-radius: 8px;">
+                                            {{ __('Reset Password') }}
+                                        </a>
                                     </td>
                                 </tr>
                             </table>
 
-                            <div class="btn-container">
-                                <a href="{{ route('login') }}" class="btn-login">
-                                    {{ __('Login to Your Account') }}
-                                </a>
-                            </div>
+                            <p class="link-fallback" style="font-size: 13px; color: #777777; word-break: break-all;">
+                                {{ __('If the button does not work, copy and paste this link into your browser') }}:<br>
+                                <a href="{{ $link }}" style="color: #C0392B; text-decoration: none;">{{ $link }}</a>
+                            </p>
 
-                            <p style="font-size: 13px; color: #888888; line-height: 1.5; margin-bottom: 0;">
-                                🔒
-                                <em>{{ __('For security reasons, please do not share this email with anyone else.') }}</em>
+                            <p class="expiry-text" style="font-size: 14px; color: #444444;">
+                                ⏳ {{ __('This link is valid for 60 minutes') }}.
+                            </p>
+
+                            <p class="warning-text" style="font-size: 14px; color: #777777;">
+                                {{ __('If you did not request a password reset, no action is needed. Your password will remain unchanged.') }}
                             </p>
 
                             <hr class="divider" style="border: none; border-top: 1px solid #eeeeee; margin: 25px 0;">
 
                             <p class="signoff-text text-center" style="font-size: 14px; color: #555555;">
-                                {{ __('Best regards') }},
-                                <br>
+                                {{ __('Best regards') }}, <br>
                                 {{ $company->name ?? config('app.name') }} {{ __('Team') }}
                             </p>
+
                         </td>
                     </tr>
 
+                    <!-- Footer -->
                     <tr>
                         <td class="footer-bg"
                             style="background-color: #2B2B2B; padding: 25px; text-align: center; color: #aaaaaa; font-size: 12px;">
@@ -265,8 +241,7 @@
                                 </p>
                                 @if ($company->email)
                                     <p style="margin: 0 0 10px 0;">
-                                        {{ __('Support') }}: <a href="mailto:{{ $company->email }}"
-                                            class="footer-link"
+                                        {{ __('Support') }}: <a href="mailto:{{ $company->email }}" class="footer-link"
                                             style="color: #E57373; text-decoration: none;">{{ $company->email }}</a>
                                     </p>
                                 @endif
@@ -276,12 +251,16 @@
                                 &copy; {{ date('Y') }} {{ $company->name ?? config('app.name') }}.
                                 {{ __('All Rights Reserved') }}.
                             </p>
+
                         </td>
                     </tr>
+
                 </table>
+
             </td>
         </tr>
     </table>
+
 </body>
 
 </html>

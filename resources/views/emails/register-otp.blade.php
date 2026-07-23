@@ -167,7 +167,7 @@
                     <tr>
                         <td align="center" class="header-bg" style="background-color: #7A0A0A; padding: 30px 20px;">
                             @if ($company && $company->logo)
-                                <img src="{{ asset('public/storage/' . $company->logo) }}"
+                                <img src="{{ company_logo() }}"
                                     alt="{{ $company->name ?? 'Company Logo' }}" class="header-logo"
                                     style="max-height: 60px; width: auto; display: block;" border="0">
                             @else

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\CompanySettingController;
@@ -15,11 +16,13 @@ use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\AddonController;
 use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\OrderController;
 
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\CheckoutController;
+use App\Http\Controllers\User\MyOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +51,12 @@ Route::get('/optimize-clear', function () {
     return 'Application cache cleared!';
 });
 
+Route::get('/migrate', function () {
+    Artisan::call('migrate');
+
+    return 'Application migrated!';
+});
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/menu', [HomeController::class, 'menu'])->name('menu');
@@ -64,22 +73,22 @@ Route::post('/cart/addons/sync', [CartController::class, 'syncAddons'])->name('c
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout/note', [CheckoutController::class, 'saveNote'])->name('checkout.note');
-Route::post('/checkout/place', [CheckoutController::class, 'place'])->name('checkout.place');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'login'])->name('login');
-
     Route::post('/login/password', [LoginController::class, 'loginWithPassword'])->name('login.password');
-
     Route::post('/login/send-otp', [LoginController::class, 'sendOtp'])->name('login.sendOtp');
-
     Route::post('/login/verify-otp', [LoginController::class, 'verifyOtp'])->name('login.verifyOtp');
 
     Route::get('register', [RegisterController::class, 'register'])->name('register');
     Route::post('register/send-otp', [RegisterController::class, 'sendOtp'])->name('register.sendOtp');
     Route::post('register/verify-otp', [RegisterController::class, 'verifyOtp'])->name('register.verifyOtp');
-
     Route::post('/register/resend-otp', [RegisterController::class, 'resendOtp'])->name('register.resendOtp');
+
+Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('forgot-password');
+Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.update');
 });
 
 /*
@@ -93,6 +102,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [UserProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/password', [UserProfileController::class, 'updatePassword'])->name('profile.password');
+    Route::post('/checkout/place', [CheckoutController::class, 'checkout_place'])->name('checkout.place');
+
+    Route::get('my-orders', [MyOrderController::class, 'index'])->name('my.orders');
+    Route::get('my-orders/data', [MyOrderController::class, 'data'])->name('my.orders.data');
 
     // Logout
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -159,4 +172,8 @@ Route::prefix('admin')
         Route::get('users/data', [UserController::class, 'data'])->name('admin.users.data');
         Route::patch('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('admin.users.toggleStatus');
         Route::delete('users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+
+        Route::get('orders', [OrderController::class, 'index'])->name('admin.orders.index');
+        Route::get('orders/data', [OrderController::class, 'data'])->name('admin.orders.data');
+        Route::get('orders/{order}', [OrderController::class, 'show'])->name('admin.orders.show');
     });

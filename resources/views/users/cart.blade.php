@@ -9,7 +9,7 @@
         <div class="hero-shape"></div>
         <div class="container text-center position-relative">
             <span class="hero-eyebrow">{{ company_name() }}</span>
-            <h1 class="menu-hero-title">{{ __('My Cart') }}</h1>
+            <h2 class="menu-hero-title">{{ __('My Cart') }}</h2>
         </div>
     </section>
 

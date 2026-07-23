@@ -1,6 +1,6 @@
 {{-- resources/views/admin/items/index.blade.php --}}
 @extends('layouts.app')
-@section('title', __('Add Management') . ' - ' . company_name())
+@section('title', __('Item Management') . ' - ' . company_name())
 
 @section('content')
     <div class="container-fluid flex-grow-1 container-p-y">

@@ -16,7 +16,7 @@ class UserProfileController extends Controller
     {
         $user = Auth::user();
 
-        return view('users.profile.edit', compact('user'));
+        return view('users.profile.profileUpdate', compact('user'));
     }
 
     public function update(Request $request): RedirectResponse

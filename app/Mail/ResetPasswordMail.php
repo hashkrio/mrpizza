@@ -9,19 +9,20 @@ use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\User;
 
-class RegistrationSuccessMail extends Mailable
+class ResetPasswordMail extends Mailable
 {
     use Queueable, SerializesModels;
-
-    public $user, $plainPassword;
+    public $user;
+    public $link;
     /**
      * Create a new message instance.
      */
-    public function __construct($user, $plainPassword)
+    public function __construct(User $user, $link)
     {
         $this->user = $user;
-        $this->plainPassword = $plainPassword;
+        $this->link = $link;
     }
 
     /**
@@ -29,9 +30,7 @@ class RegistrationSuccessMail extends Mailable
      */
     public function envelope(): Envelope
     {
-        return new Envelope(
-            subject: __('Registration Success - ') . company_name()
-        );
+        return new Envelope(subject: __('Reset Your Password - ') . company_name());
     }
 
     /**
@@ -39,9 +38,7 @@ class RegistrationSuccessMail extends Mailable
      */
     public function content(): Content
     {
-        return new Content(
-            view: 'emails.registration-success',
-        );
+        return new Content(view: 'emails.reset-password');
     }
 
     /**

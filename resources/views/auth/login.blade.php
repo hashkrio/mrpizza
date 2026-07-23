@@ -28,19 +28,19 @@
 </head>
 
 <body>
-    <!-- Content -->
-
     <div class="authentication-wrapper authentication-cover">
         <a href="{{ route('home') }}" class="app-brand auth-cover-brand">
             <span class="app-brand-logo demo">
-                <img src="{{ company_logo() }}" alt="{{ company_name() }}" style="max-height: auto; width: auto;">
+                <img src="{{ company_logo() ?? asset('/assets/img/logo.png') }}" alt="{{ company_name() }}"
+                    style="max-height: auto; width: auto;">
             </span>
         </a>
         <div class="authentication-inner row m-0">
 
             <div class="d-none d-xl-flex col-xl-8 p-0">
                 <div class="auth-cover-bg d-flex justify-content-center align-items-center">
-                    <img src="{{ login_cover() }}" alt="auth-login-cover" class="my-5 auth-illustration" />
+                    <img src="{{ login_cover() ?? asset('/assets/img/login_cover.png') }}" alt="auth-login-cover"
+                        class="my-5 auth-illustration" />
                     <img src="{{ asset('assets/img/illustrations/bg-shape-image-light.png') }}" alt="auth-login-cover"
                         class="platform-bg" />
                 </div>
@@ -67,7 +67,8 @@
                         <!-- Email / Mobile -->
                         <div class="mb-4">
                             <label class="form-label"> {{ __('Email or Mobile Number') }} </label>
-                            <input type="text" name="login" class="form-control @error('login') is-invalid @enderror"
+                            <input type="text" name="login"
+                                class="form-control @error('login') is-invalid @enderror"
                                 placeholder="Enter Email or Mobile Number" value="{{ old('login', session('login')) }}"
                                 {{ session('showOtp') ? 'readonly' : '' }} required>
 
@@ -130,12 +131,13 @@
                             <div class="my-4">
                                 <div class="d-flex justify-content-between">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                                        <input class="form-check-input" type="checkbox" name="remember"
+                                            id="remember">
                                         <label class="form-check-label" for="remember">
                                             {{ __('Remember Me') }}
                                         </label>
                                     </div>
-                                    <a href="#">
+                                    <a href="{{ route('forgot-password') }}">
                                         {{ __('Forgot Password?') }}
                                     </a>
                                 </div>

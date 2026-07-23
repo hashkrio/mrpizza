@@ -14,7 +14,7 @@
         <div class="hero-shape"></div>
         <div class="container text-center position-relative">
             <span class="hero-eyebrow">{{ company_name() }}</span>
-            <h1 class="menu-hero-title">{{ $item['name'] }}</h1>
+            <h2 class="menu-hero-title">{{ $item['name'] }}</h2>
         </div>
     </section>
 

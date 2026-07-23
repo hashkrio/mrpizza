@@ -6,7 +6,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="footer-brand mb-3">
                     <span class="logo-chip">
-                        <img src="{{ company_logo() }}" alt="{{ company_name() }}" height="38">
+                        <img src="{{ company_logo() ?? asset('/assets/img/logo.png') }}" alt="{{ company_name() }}" height="38">
                     </span>
                 </div>
                 <p class="footer-text">
