@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\AddonController;
 use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\DashboardController;
 
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\User\HomeController;
@@ -120,9 +121,12 @@ Route::middleware('auth')->group(function () {
 Route::prefix('admin')
     ->middleware(['auth', 'admin'])
     ->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
+        // Route::get('/dashboard', function () {
+        //     return view('admin.dashboard');
+        // })->name('admin.dashboard');
+
+         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
 
         // Profile
         Route::get('/profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
@@ -176,4 +180,6 @@ Route::prefix('admin')
         Route::get('orders', [OrderController::class, 'index'])->name('admin.orders.index');
         Route::get('orders/data', [OrderController::class, 'data'])->name('admin.orders.data');
         Route::get('orders/{order}', [OrderController::class, 'show'])->name('admin.orders.show');
+
+
     });
